@@ -266,6 +266,9 @@ module.exports = async (req, res) => { if (req.method === 'GET') res.setHeader('
     if (a === 'holders') { const h = await holdersOf(q.get('mint')); return out(res, 200, { full: h.full, count: h.list.length }, 's-maxage=60'); }
     if (a === 'bal') { const w = pk(q.get('wallet'), 'bad wallet'), m = pk(q.get('mint'), 'bad mint'); const r = await conn.getParsedTokenAccountsByOwner(w, { mint: m }); return out(res, 200, { accounts: r.value.map(x => ({ address: x.pubkey.toBase58(), raw: x.account.data.parsed.info.tokenAmount.amount, decimals: x.account.data.parsed.info.tokenAmount.decimals })) }); }
     if (a === 'pad') return out(res, 200, await pad(q), 's-maxage=10');
+    // a dry run of the treasury-buy builder: builds the same transaction for any wallet and simulates it (nothing is signed or sent)
+    if (a === 'simBuy') { const w = pk(q.get('wallet'), 'bad wallet'), as = ACODE[String(q.get('asset') || 'BTC').toUpperCase()]; if (!as) throw new Error('bad asset'); const r = await jupTx(w, WSOL.toBase58(), as.mint, Math.floor(Math.min(1, +q.get('sol') || .01) * 1e9), 'mnav:buy:dryrun:0');
+      const raw = Buffer.from(r.tx, 'base64'), s = await conn.simulateTransaction(VersionedTransaction.deserialize(raw), { sigVerify: false, replaceRecentBlockhash: true }); return out(res, 200, { bytes: raw.length, quote: r.quote, err: s.value.err, units: s.value.unitsConsumed, logs: (s.value.logs || []).filter(l => /Memo|rror|ail/.test(l)).slice(-6) }); }
     if (req.method === 'POST' && a === 'buildPad') return out(res, 200, await buildPad(req));
     if (req.method === 'POST' && a === 'buildLaunch') return out(res, 200, await buildLaunch(req));
     if (req.method === 'POST' && a === 'buildProfile') return out(res, 200, await buildProfile(req));
