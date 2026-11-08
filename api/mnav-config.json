@@ -1,0 +1,9 @@
+{
+  "name": "mNAV",
+  "pad": null,
+  "assets": [
+    { "code": "BTC", "symbol": "cbBTC", "name": "Bitcoin", "full": "Coinbase Wrapped BTC", "mint": "cbbtcf3aa214zXHbiAZQwf4122FBYbraNdFqgw4iMij", "decimals": 8, "note": "The original treasury asset. Coinbase's wrapped Bitcoin on Solana." },
+    { "code": "ETH", "symbol": "ETH", "name": "Ether", "full": "Ether (Portal)", "mint": "7vfCXTUXx5WJV5JADk17DUJ4ksgau7utNKj4b963voxs", "decimals": 8, "note": "Ether bridged to Solana through Wormhole Portal." },
+    { "code": "SOL", "symbol": "JitoSOL", "name": "Staked SOL", "full": "Jito Staked SOL", "mint": "J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn", "decimals": 9, "note": "SOL that keeps earning staking rewards while it sits in the treasury." }
+  ]
+}
