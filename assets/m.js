@@ -91,9 +91,7 @@
   function home() { return `
   <section class="hero"><div class="wrap">
     <div class="mk" id="heroMark">${mark('hm', 1.6)}</div>
-    <span class="eye"><span class="pulse"></span>live on Raydium LaunchLab</span>
     <h1>${words('Every coin is a')}<br><span class="it">${words('treasury company.')}</span></h1>
-    <p class="lede rv">Launch a coin and <b>1% of every trade buys Bitcoin, Ether or staked SOL</b> for its own treasury. When the coin trades for less than its treasury, under <b>1x mNAV</b>, the treasury buys it back and burns it.</p>
     <div class="cta rv d1"><a class="btn go" href="#/launch">Launch a treasury company</a><a class="btn" href="#/league">See the league</a></div>
     <div class="kpis rv d2"><div><small>Bitcoin</small><b id="kBtc">—</b><em id="kBtcC"></em></div><div><small>Ether</small><b id="kEth">—</b><em id="kEthC"></em></div><div><small>SOL</small><b id="kSol">—</b><em id="kSolC"></em></div><div><small>treasury companies</small><b id="kCoins">—</b><em class="dim" id="kPad">launchpad</em></div><div><small>held in treasuries</small><b id="kTre">—</b><em class="dim" id="kTreN">ledger</em></div></div>
   </div><span class="scrollcue" aria-hidden="true"></span></section>
@@ -347,8 +345,12 @@
     else { $$('[data-trade]').forEach(el => el.dispatchEvent(new Event('bal'))); renderLaunch(); }
     if (SECTIONS.includes(view)) { const el = $('#' + view); if (el) setTimeout(() => el.scrollIntoView({ behavior: RM ? 'auto' : 'smooth' }), 30); } else if (view === '' || view == null) scrollTo({ top: 0, behavior: 'smooth' }); }
   function fillHome() { renderTape(); renderKpis(); renderLeague(); renderLedger(); renderPeople(); launchInit(); const t = $('[data-trade="home"]'); tradeInit(t); if (t && t._picks) t._picks(); }
-  function navInit() { const top = $('#top'); addEventListener('scroll', () => top.classList.toggle('sc', scrollY > 20), { passive: true }); addEventListener('hashchange', render); $('#fMark').innerHTML = mark('fm', .8); }
-  field(); walletInit(); navInit(); tilt(); render();
+  function navInit() { const top = $('#top'); addEventListener('scroll', () => top.classList.toggle('sc', scrollY > 20), { passive: true }); addEventListener('hashchange', render); }
+  function extras() { const pr = $('#prog'); addEventListener('scroll', () => { const h = document.documentElement.scrollHeight - innerHeight; pr.style.transform = `scaleX(${h > 0 ? clamp(scrollY / h) : 0})`; }, { passive: true });
+    if (matchMedia('(pointer: coarse)').matches || RM) return;
+    document.addEventListener('pointermove', e => { const b = e.target.closest('.btn.go, .cta .btn'); $$('.mag').forEach(x => { if (x !== b) { x.style.transform = ''; x.classList.remove('mag'); } }); if (b) { const r = b.getBoundingClientRect(), x = e.clientX - r.left - r.width / 2, y = e.clientY - r.top - r.height / 2; b.classList.add('mag'); b.style.transform = `translate(${(x * .18).toFixed(1)}px, ${(y * .3).toFixed(1)}px)`; }
+      const mk = $('#heroMark svg'); if (mk && scrollY < innerHeight) { const x = e.clientX / innerWidth - .5, y = e.clientY / innerHeight - .5; mk.style.transform = `perspective(600px) rotateY(${(x * 22).toFixed(1)}deg) rotateX(${(-y * 18).toFixed(1)}deg)`; } }, { passive: true }); }
+  field(); walletInit(); navInit(); tilt(); extras(); render();
   Promise.all([loadMarket(), loadCoins(), loadLedger(), loadSocial()]).then(() => { if (homeOn) fillHome(); else render(); });
   setInterval(async () => { await loadMarket(); if (homeOn) { renderTape(); renderKpis(); } }, 30000);
   setInterval(async () => { await Promise.all([loadCoins(), loadLedger(), loadSocial()]); if (homeOn) { renderLeague(); renderLedger(); renderPeople(); renderKpis(); renderTape(); } }, 60000);

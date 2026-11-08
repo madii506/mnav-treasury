@@ -216,3 +216,19 @@ a.lrow:hover { background: rgba(247, 147, 26, .045); } .lrow.h { font: 500 11px 
   .tstat { grid-template-columns: repeat(3, minmax(0, 1fr)); } .tstat div { padding: 10px; } .faq summary { font-size: 21px; } .foot .wrap { flex-wrap: wrap; } .drop { width: min(340px, calc(100vw - 32px)); } .ent { padding: 12px 14px; }
 }
 @media (prefers-reduced-motion: reduce) { .rv { opacity: 1; transform: none; transition: none; } .hero h1 .w { animation: none; opacity: 1; transform: none; filter: none; } .tape .in2, .mk * { animation: none !important; } }
+
+/* v2: scroll progress, heading wipes, magnetic buttons, hero */
+.prog { position: absolute; left: 0; right: 0; top: 0; height: 2px; background: linear-gradient(90deg, #ffd59a, #f7931a); transform-origin: 0 50%; transform: scaleX(0); box-shadow: 0 0 12px rgba(247, 147, 26, .7); }
+.btn.mag { transition: transform .15s linear, box-shadow .25s, border-color .25s; }
+.head.rv h2 { clip-path: inset(0 0 100% 0); transform: translateY(26px); transition: clip-path 1.1s var(--ease) .1s, transform 1.1s var(--ease) .1s; } .head.rv.shown h2 { clip-path: inset(-10% -5% -20% -5%); transform: none; }
+.head .kick::before { transform: scaleX(0); transform-origin: 0 50%; transition: transform .9s var(--ease) .2s; } .head.shown .kick::before { transform: scaleX(1); }
+.hero { min-height: 100svh; } .hero .mk { width: 190px; height: 190px; margin-bottom: 18px; } .hero .mk svg { transition: transform .6s var(--ease); filter: drop-shadow(0 20px 50px rgba(247, 147, 26, .35)); }
+.hero h1 { margin-top: 8px; } .hero .cta { margin-top: 40px; }
+.hero::after { content: ''; position: absolute; left: 50%; top: 40%; width: min(900px, 90vw); height: 420px; transform: translate(-50%, -50%); background: radial-gradient(closest-side, rgba(247, 147, 26, .10), rgba(247, 147, 26, 0)); pointer-events: none; z-index: -1; animation: breathe 7s ease-in-out infinite; }
+@keyframes breathe { 50% { opacity: .55; transform: translate(-50%, -50%) scale(1.08); } }
+.card { transition: border-color .35s, background .35s; } .card:hover { border-color: rgba(247, 147, 26, .2); }
+.lrow { position: relative; } a.lrow::after { content: '→'; position: absolute; right: -14px; opacity: 0; transition: all .3s var(--ease); color: var(--org2); } a.lrow:hover::after { right: 6px; opacity: 1; }
+.kpis b { transition: color .4s; } .kpis > div { transition: background .3s; } .kpis > div:hover { background: rgba(247, 147, 26, .05); }
+.closer { padding-bottom: 150px; }
+@media (max-width: 640px) { .hero .mk { width: 130px; height: 130px; } }
+@media (prefers-reduced-motion: reduce) { .head.rv h2 { clip-path: none; transform: none; } .hero::after { animation: none; } }
