@@ -1,0 +1,1 @@
+{ "functions": { "api/mnav.js": { "maxDuration": 30 } }, "cleanUrls": true }

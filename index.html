@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>mNAV · every coin is a treasury company</title>
+<meta name="description" content="Launch a coin on Raydium LaunchLab and it becomes a treasury company: 1% of every trade buys Bitcoin, Ether or staked SOL for its own treasury. Under 1x mNAV, the treasury buys the coin back and burns it.">
+<meta property="og:title" content="mNAV"><meta property="og:description" content="Every coin is a treasury company."><meta property="og:image" content="https://mnav-treasury.vercel.app/og.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="mNAV"><meta name="twitter:description" content="Every coin is a treasury company."><meta name="twitter:image" content="https://mnav-treasury.vercel.app/og.png"><meta name="theme-color" content="#070504">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=1"><link rel="icon" type="image/png" sizes="64x64" href="/favicon.png?v=1"><link rel="apple-touch-icon" href="/icon.png?v=1">
+<link rel="preload" href="/assets/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/assets/fonts/instrument-serif-latin-400-italic.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/m.css?v=1">
+</head>
+<body>
+<canvas id="cv" aria-hidden="true"></canvas><div class="grain" aria-hidden="true"></div><div class="glow" id="glow" aria-hidden="true"></div>
+<header class="top" id="top"><div class="wrap">
+  <span class="tl"></span>
+  <nav class="links" id="links"><a href="#/ratio">The ratio</a><a href="#/how">How</a><a href="#/league">League</a><a href="#/launch">Launch</a><a href="#/trade">Trade</a><a href="#/ledger">Ledger</a><a href="#/people">People</a><a href="#/faq">FAQ</a></nav>
+  <div class="acct" id="acct">
+    <button class="btn sm go" id="connect">Connect</button>
+    <button class="wbtn" id="wbtn" hidden><span class="pulse"></span><b id="wSol">— SOL</b><span class="av" id="wAv"></span></button>
+    <div class="drop" id="drop">
+      <div class="tot"><small>wallet · live</small><b id="dTot">—</b><span class="mono dim" id="dAddr"></span></div>
+      <div class="toks" id="dToks"></div>
+      <div class="drow"><a class="btn sm" id="dProfile" href="#/">My profile</a><a class="btn sm" href="#/console">Console</a><button class="btn sm" id="dOut">Disconnect</button></div>
+    </div>
+  </div>
+</div></header>
+<main id="app"></main>
+<footer class="foot"><div class="wrap"><span class="fm" id="fMark"></span><span>mNAV runs on Raydium LaunchLab. Prices from Jupiter. Every number on this site is read from Solana or a live API. Not financial advice.</span><a href="#/console">console</a></div></footer>
+<div class="modal" id="modal"><div class="mcard" id="mCard"></div></div>
+<div class="toast" id="toast"></div>
+<script src="/assets/m.js?v=1"></script>
+</body>
+</html>
